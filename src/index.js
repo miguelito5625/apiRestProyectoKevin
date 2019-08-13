@@ -9,6 +9,7 @@ const app = express();
 
 // importing routes
 const aereosRoutes = require('./routes/aereos/aereoRoutes');
+const aeristasRoutes = require('./routes/aeristas/aeristaRoutes');
 
 
 // settings
@@ -28,7 +29,7 @@ app.use(express.urlencoded({extended: false}));
 
 // routes
 app.use('/', aereosRoutes);
-
+app.use('/', aeristasRoutes);
 
 // starting the server
 var ip = require("ip");
