@@ -24,7 +24,9 @@ app.use(myConnection(mysql, {
   user: 'desarrollador',
   password: 'mariobross5625',
   port: 3306,
-  database: 'bandegua'
+  database: 'bandegua',
+  timezone: 'utc',
+  dateStrings : true
 }, 'single'));
 app.use(express.urlencoded({extended: false}));
 
