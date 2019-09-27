@@ -107,5 +107,60 @@ aereoController.editarAereo = (req, res) => {
 
 };
 
+aereoController.sumaCintaColoresUnaFecha = (req, res) => {
+
+    // var tamanioBody = Object.keys(req.body).length;
+    const fechas = req.body;
+    console.log(fechas);
+
+    // console.log(tamanioBody);
+
+    req.getConnection((err, conn) => {
+
+            conn.query('SELECT * FROM vista_suma_colores_cintas WHERE DATE(fecha) = ?', fechas.fecha1, (err, suma_cintas) => {
+                if (err) {
+                    console.log('error al obtener viajes');
+                    // console.log(err);
+                    res.send('error');
+                } else {
+                    console.log('sumas de cintas enviadas');
+                    const data = { suma_cintas };
+                    // console.log(data);
+                    res.send(data);
+                }
+            });
+
+    })
+
+}
+
+
+
+aereoController.sumaCintaColoresDosFechas = (req, res) => {
+
+    // var tamanioBody = Object.keys(req.body).length;
+    const fechas = req.body;
+    console.log(fechas);
+
+    // console.log(tamanioBody);
+
+    req.getConnection((err, conn) => {
+
+            conn.query('SELECT SUM(amarillo) AS amarillo, SUM(negro) AS negro, SUM(rojo) AS rojo, SUM(verde) AS verde, SUM(morado) AS morado, SUM(cafe) AS cafe, SUM(naranja) AS naranja, SUM(azul) AS azul FROM vista_suma_colores_cintas WHERE DATE(fecha) BETWEEN ? AND ?', [fechas.fecha1, fechas.fecha2], (err, suma_cintas) => {
+                if (err) {
+                    console.log('error al obtener viajes');
+                    // console.log(err);
+                    res.send('error');
+                } else {
+                    console.log('sumas de cintas por fecha enviadas');
+                    const data = { suma_cintas };
+                    console.log(data);
+                    res.send(data);
+                }
+            });
+
+    })
+
+}
 
 module.exports = aereoController;

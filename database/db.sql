@@ -71,6 +71,14 @@ INNER JOIN seccion_mini_finca ON viaje.id_seccion_mini_finca = seccion_mini_finc
 
 
 
+CREATE VIEW vista_suma_colores_cintas AS
+SELECT SUM(viaje.amarillo) as amarillo, SUM(viaje.negro) AS negro, SUM(viaje.rojo) AS rojo,
+SUM(viaje.verde) AS verde, SUM(viaje.morado) AS morado, SUM(viaje.cafe) AS cafe, 
+SUM(viaje.naranja) AS naranja, SUM(viaje.azul) AS azul,
+DATE_FORMAT(viaje.created_at, "%Y-%m-%d") AS fecha FROM viaje
+GROUP BY DATE_FORMAT(viaje.created_at, "%Y-%m-%d");
+
+
 
 
 //Para consulta por dia concreto
@@ -80,3 +88,19 @@ WHERE DATE(created_at) = '2019-09-08'
 //Para consulta entre un rango de fechas
 SELECT * FROM viaje
 WHERE DATE(created_at) BETWEEN '2019-09-07' AND '2019-09-08'
+
+
+//Para sumar columnas agrupando por fechas
+SELECT SUM(viaje.amarillo) as suma_amarillo, DATE_FORMAT(viaje.created_at, "%Y-%m-%d") AS fecha FROM viaje
+GROUP BY DATE_FORMAT(viaje.created_at, "%Y-%m-%d");
+
+SELECT SUM(amarillo) AS amarillo, SUM(negro) AS negro, SUM(rojo) AS rojo, SUM(verde) AS verde,
+SUM(morado) AS morado, SUM(cafe) AS cafe, SUM(naranja) AS naranja, SUM(azul) AS azul
+FROM vista_suma_colores_cintas WHERE DATE(fecha) BETWEEN '2019-09-12' AND '2019-09-14';
+
+
+
+SELECT SUM(amarillo) AS amarillo, SUM(negro) AS negro, SUM(rojo) AS rojo, SUM(verde) AS verde,
+SUM(morado) AS morado, SUM(cafe) AS cafe, SUM(naranja) AS naranja, SUM(azul) AS azul,
+CONCAT('2019-09-12') AS fecha1, CONCAT('2019-09-14') AS fecha2
+FROM vista_suma_colores_cintas WHERE DATE(fecha) BETWEEN '2019-09-12' AND '2019-09-14';
