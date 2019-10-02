@@ -2,7 +2,7 @@
 const express = require('express'),
     path = require('path'),
     morgan = require('morgan'),
-    mysql = require('mysql'),
+    mysql = require('mysql2'),
     myConnection = require('express-myconnection');
 
 const app = express();
@@ -15,7 +15,7 @@ const seccionesMFRoutes = require('./routes/minifincas/secciones');
 
 
 // settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 
 //middlewares
 // app.use(morgan('dev'));
