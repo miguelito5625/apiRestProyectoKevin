@@ -15,7 +15,7 @@ const seccionesMFRoutes = require('./routes/minifincas/secciones');
 
 
 // settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 
 //middlewares
 // app.use(morgan('dev'));
@@ -27,7 +27,7 @@ app.use(myConnection(mysql, {
   database: 'bandegua',
   timezone: 'utc',
   dateStrings : true
-}, 'single'));
+}, 'pool'));
 app.use(express.urlencoded({extended: false}));
 
 
